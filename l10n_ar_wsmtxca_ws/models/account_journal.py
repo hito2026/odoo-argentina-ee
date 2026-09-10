@@ -1,3 +1,5 @@
+import odoo
+
 from odoo import _, api, models
 from odoo.exceptions import UserError
 
@@ -50,7 +52,7 @@ class AccountJournal(models.Model):
         if afip_ws != "wsmtxca":
             return super()._l10n_ar_get_afip_last_invoice_number(document_type)
         self.ensure_one()
-        if self.env.registry.in_test_mode():
+        if odoo.tools.config.get("test_enable"):
             return 0
 
         pos_number = self.l10n_ar_afip_pos_number
