@@ -50,7 +50,8 @@ class AccountJournal(models.Model):
         if afip_ws != "wsmtxca":
             return super()._l10n_ar_get_afip_last_invoice_number(document_type)
         self.ensure_one()
-        if self.env.registry.in_test_mode():
+        from odoo.tools import config
+        if config["test_enable"]:
             return 0
 
         pos_number = self.l10n_ar_afip_pos_number
